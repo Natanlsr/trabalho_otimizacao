@@ -150,7 +150,7 @@ def main():
         for pos in range(0,len(l),1):
                 re_linhas += dicionario[l[pos]]
         prob += re_linhas <= 1
-    print(re_linhas)
+   # print(re_linhas)
     #Para as colunas   
     
     for l in colunas:
@@ -159,13 +159,13 @@ def main():
                 re_colunas += dicionario[l[pos]]
         prob += re_colunas <= 1
 
-    print(diagonais)
+    #print(diagonais)
     #Para as diagonais
     
     for l in diagonais:
         re_diagonais = []
         for pos in range(0,len(l),1):
-                print(dicionario[l[pos]])
+                #print(dicionario[l[pos]])
                 re_diagonais += dicionario[l[pos]]
         prob += re_diagonais <= 1
     
