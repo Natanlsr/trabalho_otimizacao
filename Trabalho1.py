@@ -50,7 +50,6 @@ def pegaDiagonais(matriz):
         d.append('M'+str(i) +'_' + str(j))
        
         if(i == len(matriz)-1 or j == len(matriz)-1):
-            print(i,j)
             q += 1
             diagonais.append(d)
             d = []
@@ -92,7 +91,6 @@ def pegaDiagonais(matriz):
         d.append('M'+str(i) +'_' + str(j))
        
         if(i == len(matriz)-1 or j == 0):
-            print(i,j)
             q += 1
             diagonais.append(d)
             d = []
@@ -117,7 +115,7 @@ def main():
     matriz = [0] * n
     matriz = [matriz] * n
     linhas,colunas = pegaLinhasEColunas(matriz)
-    print(linhas)
+    #print(linhas)
     #print(colunas)
     diagonais = pegaDiagonais(matriz)
     #print(diagonais)
