@@ -118,17 +118,17 @@ def main():
     matriz = [matriz] * n
     linhas,colunas = pegaLinhasEColunas(matriz)
     print(linhas)
-    print(colunas)
+    #print(colunas)
     diagonais = pegaDiagonais(matriz)
-    print(diagonais)
+    #print(diagonais)
     #montando variaveis
     di = []
     dicionario = {}
     for i in range(0,len(matriz),1):
         for j in range(0,len(matriz),1):
            di.append('M'+ str(i)+ '_' +str(j))
-           dicionario['M'+ str(i)+ '_' +str(j)] = LpVariable('M'+ str(i)+ '_' +str(j),0,1)
-    print(dicionario)
+           dicionario['M'+ str(i)+ '_' +str(j)] = LpVariable('M'+ str(i)+ '_' +str(j),0,1,cat='Integer')
+    #print(dicionario)
 
     #Criando o solver
     prob = LpProblem("Problema das Damas", LpMaximize)
@@ -137,30 +137,33 @@ def main():
     soma= []
     for i in di:
         soma += dicionario[i]
-    print(soma)
+    #print(soma)
     prob += soma
 
 
    #Restricoes
 
     #Para as linhas:
-    re_linhas = []
+    
     for l in linhas:
+        re_linhas = []
         for pos in range(0,len(l),1):
                 re_linhas += dicionario[l[pos]]
         prob += re_linhas <= 1
-
+    print(re_linhas)
     #Para as colunas   
-    re_colunas = []
+    
     for l in colunas:
+        re_colunas = []
         for pos in range(0,len(l),1):
                 re_colunas += dicionario[l[pos]]
         prob += re_colunas <= 1
 
     print(diagonais)
     #Para as diagonais
-    re_diagonais = []
+    
     for l in diagonais:
+        re_diagonais = []
         for pos in range(0,len(l),1):
                 print(dicionario[l[pos]])
                 re_diagonais += dicionario[l[pos]]
