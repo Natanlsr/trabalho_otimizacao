@@ -102,7 +102,7 @@ def pegaDiagonais(matriz):
             i += 1
             j -= 1
    
-    print(diagonais)
+    return diagonais
         
     
         
@@ -117,8 +117,65 @@ def main():
     matriz = [0] * n
     matriz = [matriz] * n
     linhas,colunas = pegaLinhasEColunas(matriz)
-    pegaDiagonais(matriz)
-    #Modelagem usando pulp
+    print(linhas)
+    print(colunas)
+    diagonais = pegaDiagonais(matriz)
+    print(diagonais)
+    #montando variaveis
+    di = []
+    dicionario = {}
+    for i in range(0,len(matriz),1):
+        for j in range(0,len(matriz),1):
+           di.append('M'+ str(i)+ '_' +str(j))
+           dicionario['M'+ str(i)+ '_' +str(j)] = LpVariable('M'+ str(i)+ '_' +str(j),0,1)
+    print(dicionario)
+
+    #Criando o solver
+    prob = LpProblem("Problema das Damas", LpMaximize)
+
+    #Funcao objetivo
+    soma= []
+    for i in di:
+        soma += dicionario[i]
+    print(soma)
+    prob += soma
+
+
+   #Restricoes
+
+    #Para as linhas:
+    re_linhas = []
+    for l in linhas:
+        for pos in range(0,len(l),1):
+                re_linhas += dicionario[l[pos]]
+        prob += re_linhas <= 1
+
+    #Para as colunas   
+    re_colunas = []
+    for l in colunas:
+        for pos in range(0,len(l),1):
+                re_colunas += dicionario[l[pos]]
+        prob += re_colunas <= 1
+
+    print(diagonais)
+    #Para as diagonais
+    re_diagonais = []
+    for l in diagonais:
+        for pos in range(0,len(l),1):
+                print(dicionario[l[pos]])
+                re_diagonais += dicionario[l[pos]]
+        prob += re_diagonais <= 1
+    
+
+    print(prob)
+    prob.solve()
+    print("Status:", LpStatus[prob.status])
+    total = 0
+    for v in prob.variables():
+        total +=  v.varValue
+        print(v.name, "=", v.varValue)
+    print("Total de Damas = ", total)
+    
 
 if __name__ == '__main__':
     main()
