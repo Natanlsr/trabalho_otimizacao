@@ -102,14 +102,7 @@ def pegaDiagonais(matriz):
    
     return diagonais
         
-    
-        
-        
-        
-            
-        
-    
-
+@profile   
 def main():
     n = int(input("Digite o tamando do n: "))
     matriz = [0] * n
@@ -149,6 +142,7 @@ def main():
                 re_linhas += dicionario[l[pos]]
         prob += re_linhas <= 1
    # print(re_linhas)
+   
     #Para as colunas   
     
     for l in colunas:
@@ -158,6 +152,7 @@ def main():
         prob += re_colunas <= 1
 
     #print(diagonais)
+        
     #Para as diagonais
     
     for l in diagonais:
@@ -168,13 +163,13 @@ def main():
         prob += re_diagonais <= 1
     
 
-    print(prob)
+    #print(prob)
     prob.solve()
     print("Status:", LpStatus[prob.status])
     total = 0
     for v in prob.variables():
         total +=  v.varValue
-        print(v.name, "=", v.varValue)
+        #print(v.name, "=", v.varValue)
     print("Total de Damas = ", total)
     
 
