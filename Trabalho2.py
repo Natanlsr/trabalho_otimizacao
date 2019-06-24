@@ -118,11 +118,10 @@ def main():
     matriz = []
     for i in range(0,n,1):
         linha = [0]*n
-        matriz.append(linha)
-    
+        matriz.append(linha)   
             
     Tmin = 0
-    Tmax = 30000
+    Tmax = 300
     T = 0
     k = 3
     Qtd_Damas = 0
@@ -131,13 +130,15 @@ def main():
         i = randrange(0,n)
         j = randrange(0,n)
         matriz[i][j] = 1
+
+        #Verificando se infrige as restricoes
         if(not(verificaLinhasColunas(matriz) and VerificaDiagonais(matriz))):
             matriz[i][j] = 0
         qtd_vizinho = quantidadeDama(matriz)
 
         #Verificando se solucao melhorou se nao retorna para o anterior
         if(qtd_atual > qtd_vizinho):
-            if(not(math.exp(T/k) >= uniform(0,1))):
+            if(not(math.exp(T/k) >= uniform(0,1))): #tentando passar por maximos locais
                 matriz[i][j] = 0
         
         T+=1
